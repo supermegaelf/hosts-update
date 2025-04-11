@@ -14,7 +14,6 @@ else
     exit 1
 fi
 
-# Выбор remark в зависимости от inbound_tag
 if [ "$choice" == "1" ]; then
     echo "Choose remark for VLESS Reality Steal Oneself:"
     echo "1) 🇩🇪 Быстрый 🚀"
