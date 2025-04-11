@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Choose inbound_tag to update:"
+echo "Choose inbound to update:"
 echo "1) VLESS Reality Steal Oneself"
 echo "2) VLESS WS"
 read -p "Enter your choice (1 or 2): " choice
