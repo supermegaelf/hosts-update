@@ -14,6 +14,35 @@ else
     exit 1
 fi
 
+# Выбор remark в зависимости от inbound_tag
+if [ "$choice" == "1" ]; then
+    echo "Choose remark for VLESS Reality Steal Oneself:"
+    echo "1) 🇩🇪 Быстрый 🚀"
+    echo "2) 🇷🇺 Быстрый 🚀"
+    read -p "Enter your choice (1 or 2): " remark_choice
+    if [ "$remark_choice" == "1" ]; then
+        remark="🇩🇪 Быстрый 🚀"
+    elif [ "$remark_choice" == "2" ]; then
+        remark="🇷🇺 Быстрый 🚀"
+    else
+        echo "Invalid choice for remark! Please select 1 or 2."
+        exit 1
+    fi
+elif [ "$choice" == "2" ]; then
+    echo "Choose remark for VLESS WS:"
+    echo "1) 🇩🇪 Устойчивый 🛡️"
+    echo "2) 🇷🇺 Устойчивый 🛡️"
+    read -p "Enter your choice (1 or 2): " remark_choice
+    if [ "$remark_choice" == "1" ]; then
+        remark="🇩🇪 Устойчивый 🛡️"
+    elif [ "$remark_choice" == "2" ]; then
+        remark="🇷🇺 Устойчивый 🛡️"
+    else
+        echo "Invalid choice for remark! Please select 1 or 2."
+        exit 1
+    fi
+fi
+
 if [ "$choice" == "1" ]; then
     read -p "Main domain: " sni_domain
 fi
@@ -36,7 +65,7 @@ if [ "$choice" == "1" ]; then
     docker exec -it $container_id mariadb --default-character-set=utf8mb4 -u marzban -p${MySQL_password} marzban -e "
     UPDATE hosts 
     SET 
-        remark = '🇷🇺 Быстрый 🚀',
+        remark = '${remark}',
         address = '${address_domain}',
         port = 443,
         sni = '${sni_domain}',
@@ -48,7 +77,7 @@ elif [ "$choice" == "2" ]; then
     docker exec -it $container_id mariadb --default-character-set=utf8mb4 -u marzban -p${MySQL_password} marzban -e "
     UPDATE hosts 
     SET 
-        remark = '🇷🇺 Устойчивый 🛡️',
+        remark = '${remark}',
         address = '${address_domain}',
         port = 8443,
         sni = '${address_domain}',
