@@ -6,15 +6,6 @@ echo "2) VLESS WS"
 read -p "Enter your choice (1 or 2): " choice
 
 if [ "$choice" == "1" ]; then
-    read -p "Node domain (e.g., example.com): " address_domain
-elif [ "$choice" == "2" ]; then
-    read -p "Node domain (e.g., cdn.example.com): " address_domain
-else
-    echo "Invalid choice! Please select 1 or 2."
-    exit 1
-fi
-
-if [ "$choice" == "1" ]; then
     echo "Choose remark for VLESS Reality Steal Oneself:"
     echo "1) 🇩🇪 Быстрый 🚀"
     echo "2) 🇷🇺 Быстрый 🚀"
@@ -27,6 +18,8 @@ if [ "$choice" == "1" ]; then
         echo "Invalid choice for remark! Please select 1 or 2."
         exit 1
     fi
+    read -p "Node domain (e.g., example.com): " address_domain
+    read -p "Main domain (e.g., example.com): " sni_domain
 elif [ "$choice" == "2" ]; then
     echo "Choose remark for VLESS WS:"
     echo "1) 🇩🇪 Устойчивый 🛡️"
@@ -40,18 +33,15 @@ elif [ "$choice" == "2" ]; then
         echo "Invalid choice for remark! Please select 1 or 2."
         exit 1
     fi
-fi
-
-if [ "$choice" == "1" ]; then
-    read -p "Main domain: " sni_domain
+    read -p "Node domain (e.g., cdn.example.com): " address_domain
+    read -p "Path (e.g., /2bMC3f7wFbafrCi): " user_path
+    full_path="${user_path}?ed=2560"
+else
+    echo "Invalid choice! Please select 1 or 2."
+    exit 1
 fi
 
 read -p "MySQL password: " MySQL_password
-
-if [ "$choice" == "2" ]; then
-    read -p "Path (e.g., /2bMC3f7wFbafrCi): " user_path
-    full_path="${user_path}?ed=2560"
-fi
 
 container_id=$(docker ps -q -f ancestor=mariadb:lts | head -n 1)
 echo "Container ID: $container_id"
