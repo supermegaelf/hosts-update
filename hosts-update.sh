@@ -53,7 +53,8 @@ if [ "$choice" == "2" ]; then
     full_path="${user_path}?ed=2560"
 fi
 
-container_id=$(docker ps -q -f ancestor=mariadb:lts)
+container_id=$(docker ps -q -f ancestor=mariadb:lts | head -n 1)
+echo "Container ID: $container_id"
 
 if [ -z "$container_id" ]; then
     echo "Container with image mariadb:lts not found or not running."
@@ -61,7 +62,7 @@ if [ -z "$container_id" ]; then
 fi
 
 if [ "$choice" == "1" ]; then
-    docker exec -it $container_id mariadb --default-character-set=utf8mb4 -u marzban -p${MySQL_password} marzban -e "
+    docker exec -it "$container_id" bash -c "mariadb --default-character-set=utf8mb4 -u marzban -p${MySQL_password} marzban -e \"
     UPDATE hosts 
     SET 
         remark = '${remark}',
@@ -71,9 +72,9 @@ if [ "$choice" == "1" ]; then
         fingerprint = 'chrome'
     WHERE 
         inbound_tag = 'VLESS Reality Steal Oneself';
-    "
+    \""
 elif [ "$choice" == "2" ]; then
-    docker exec -it $container_id mariadb --default-character-set=utf8mb4 -u marzban -p${MySQL_password} marzban -e "
+    docker exec -it "$container_id" bash -c "mariadb --default-character-set=utf8mb4 -u marzban -p${MySQL_password} marzban -e \"
     UPDATE hosts 
     SET 
         remark = '${remark}',
@@ -86,7 +87,7 @@ elif [ "$choice" == "2" ]; then
         path = '${full_path}'
     WHERE 
         inbound_tag = 'VLESS WS';
-    "
+    \""
 fi
 
 if [ $? -eq 0 ]; then
