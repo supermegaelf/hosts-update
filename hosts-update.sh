@@ -1,15 +1,15 @@
 #!/bin/bash
 
-echo "Choose inbound to update:"
+echo -e "\033[32mChoose inbound to update:\033[0m"
 echo "1) VLESS Reality Steal Oneself"
 echo "2) VLESS WS"
-read -p "Enter your choice (1 or 2): " choice
+read -p $'\033[32mEnter your choice (1 or 2): \033[0m' choice
 
 if [ "$choice" == "1" ]; then
-    echo "Choose remark for VLESS Reality Steal Oneself:"
+    echo -e "\033[32mChoose remark for VLESS Reality Steal Oneself:\033[0m"
     echo "1) 🇩🇪 Быстрый 🚀"
     echo "2) 🇷🇺 Быстрый 🚀"
-    read -p "Enter your choice (1 or 2): " remark_choice
+    read -p $'\033[32mEnter your choice (1 or 2): \033[0m' remark_choice
     if [ "$remark_choice" == "1" ]; then
         remark="🇩🇪 Быстрый 🚀"
     elif [ "$remark_choice" == "2" ]; then
@@ -18,13 +18,13 @@ if [ "$choice" == "1" ]; then
         echo "Invalid choice for remark! Please select 1 or 2."
         exit 1
     fi
-    read -p "Node domain (e.g., example.com): " address_domain
-    read -p "Main domain (e.g., example.com): " sni_domain
+    read -p $'\033[32mNode domain (e.g., example.com): \033[0m' address_domain
+    read -p $'\033[32mMain domain (e.g., example.com): \033[0m' sni_domain
 elif [ "$choice" == "2" ]; then
-    echo "Choose remark for VLESS WS:"
+    echo -e "\033[32mChoose remark for VLESS WS:\033[0m"
     echo "1) 🇩🇪 Устойчивый 🛡️"
     echo "2) 🇷🇺 Устойчивый 🛡️"
-    read -p "Enter your choice (1 or 2): " remark_choice
+    read -p $'\033[32mEnter your choice (1 or 2): \033[0m' remark_choice
     if [ "$remark_choice" == "1" ]; then
         remark="🇩🇪 Устойчивый 🛡️"
     elif [ "$remark_choice" == "2" ]; then
@@ -33,15 +33,15 @@ elif [ "$choice" == "2" ]; then
         echo "Invalid choice for remark! Please select 1 or 2."
         exit 1
     fi
-    read -p "Node domain (e.g., cdn.example.com): " address_domain
-    read -p "Path (e.g., /2bMC3f7wFbafrCi): " user_path
+    read -p $'\033[32mNode domain (e.g., cdn.example.com): \033[0m' address_domain
+    read -p $'\033[32mPath (e.g., /2bMC3f7wFbafrCi): \033[0m' user_path
     full_path="${user_path}?ed=2560"
 else
     echo "Invalid choice! Please select 1 or 2."
     exit 1
 fi
 
-read -p "MySQL password: " MySQL_password
+read -p $'\033[32mMySQL password: \033[0m' MySQL_password
 
 container_id=$(docker ps -q -f ancestor=mariadb:lts | head -n 1)
 echo "Container ID: $container_id"
